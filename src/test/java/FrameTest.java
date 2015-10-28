@@ -76,4 +76,25 @@ public class FrameTest {
         assertThat(frame.isSpare()).isTrue();
     }
 
+    @Test
+    public void isCompletedWhenFirstThrowIs10() throws Exception {
+        frame.roll(10);
+        assertThat(frame.isCompleted()).isTrue();
+    }
+
+   @Test
+    public void isCompletedwhenTwoThrows() throws Exception {
+        frame.roll(3);
+        frame.roll(6);
+        assertThat(frame.isCompleted()).isTrue();
+    }
+
+   @Test
+    public void isNotCompletedwhenFirstThrowIsLowerThan10() throws Exception {
+        frame.roll(3);
+        assertThat(frame.isCompleted()).isFalse();
+    }
+
+
+
 }

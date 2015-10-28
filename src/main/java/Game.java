@@ -8,17 +8,24 @@ import java.util.LinkedList;
  */
 public class Game {
 
+    private Frame currentFrame = new Frame();
+
     private LinkedList<Frame> frames = new LinkedList<Frame>();
 
     void roll(int pins) {
-        Frame frame = new Frame();
-        frames.add(frame);
-        frame.roll(pins);
+        currentFrame.roll(pins);
+        if (currentFrame.isCompleted()){
+            frames.add(currentFrame);
+            currentFrame = new Frame();
+        }
     }
 
     int score() {
-        Frame frame = frames.iterator().next();
-        return frame.score();
+        int totalScore = 0;
+        for (Frame frame : frames) {
+            totalScore += frame.score();
+        }
+        totalScore += currentFrame.score();
+        return totalScore;
     }
-
 }

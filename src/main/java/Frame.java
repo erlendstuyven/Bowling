@@ -38,4 +38,8 @@ public class Frame {
     public boolean isStrike() {
         return firstThrow == 10;
     }
+
+    public boolean isCompleted() {
+        return isStrike() || (firstThrow > -1 && secondThrow > -1);
+    }
 }
