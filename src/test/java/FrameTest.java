@@ -95,6 +95,14 @@ public class FrameTest {
         assertThat(frame.isCompleted()).isFalse();
     }
 
-
+    @Test
+    public void isInProgressWhenStartedButNotCompleted() {
+        frame.roll(4);
+        assertThat(frame.isInProgress()).isTrue();
+        frame.roll(3);
+        assertThat(frame.isInProgress()).isFalse();
+        frame = new Frame();
+        assertThat(frame.isInProgress()).isFalse();
+    }
 
 }

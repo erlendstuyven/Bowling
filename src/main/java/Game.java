@@ -1,7 +1,6 @@
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created by bkerl on 28/10/15.
@@ -15,8 +14,7 @@ public class Game {
     void roll(int pins) {
         currentFrame.roll(pins);
         if (currentFrame.isCompleted()){
-            frames.add(currentFrame);
-            currentFrame = new Frame();
+            completeFrame();
         }
     }
 
@@ -25,7 +23,15 @@ public class Game {
         for (Frame frame : frames) {
             totalScore += frame.score();
         }
-        totalScore += currentFrame.score();
+        if (currentFrame.isInProgress()){
+            totalScore += currentFrame.score();
+        }
         return totalScore;
     }
+
+    private void completeFrame() {
+        frames.add(currentFrame);
+        currentFrame = new Frame();
+    }
+
 }

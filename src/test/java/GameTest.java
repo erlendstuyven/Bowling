@@ -18,7 +18,7 @@ public class GameTest {
     }
 
     @Test
-    public void rollWhenSpareThenTheNextThrownPinsAreAddedToPreviousFrame() {
+    public void rollWhenSpareThenTheNextThrowPinsAreAddedToPreviousFrame() {
         Game game = new Game();
         game.roll(4);
         Assertions.assertThat(game.score()).isEqualTo(4);

@@ -42,4 +42,8 @@ public class Frame {
     public boolean isCompleted() {
         return isStrike() || (firstThrow > -1 && secondThrow > -1);
     }
+
+    public boolean isInProgress() {
+        return !isCompleted() && firstThrow > -1;
+    }
 }
