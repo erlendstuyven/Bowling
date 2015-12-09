@@ -90,6 +90,13 @@ public class FrameTest {
     }
 
    @Test
+    public void isNormalGame() throws Exception {
+        frame.roll(3);
+        frame.roll(6);
+        assertThat(frame.isNormal()).isTrue();
+    }
+
+   @Test
     public void isNotCompletedwhenFirstThrowIsLowerThan10() throws Exception {
         frame.roll(3);
         assertThat(frame.isCompleted()).isFalse();
@@ -104,5 +111,25 @@ public class FrameTest {
         frame = new Frame();
         assertThat(frame.isInProgress()).isFalse();
     }
+
+    @Test
+    public void isStarted() {
+        assertThat(frame.isStarted()).isFalse();
+        frame.roll(4);
+        assertThat(frame.isStarted()).isTrue();
+    }
+
+    @Test
+    public void scoreFirstThrow() {
+        frame.roll(3);
+        frame.roll(4);
+        assertThat(frame.scoreFirstThrow()).isEqualTo(3);
+    }
+
+   @Test(expected = IllegalStateException.class)
+    public void scoreFirstThrowIfFirstThrowDoesNotExistThrowIllegalStateException() {
+        frame.scoreFirstThrow();
+    }
+
 
 }

@@ -1,5 +1,3 @@
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.*;
 
 /**
@@ -14,24 +12,31 @@ public class Game {
     void roll(int pins) {
         currentFrame.roll(pins);
         if (currentFrame.isCompleted()){
-            completeFrame();
+            frames.add(currentFrame);
+            currentFrame = new Frame();
         }
     }
 
     int score() {
         int totalScore = 0;
+        Frame previousGame = new Frame();
         for (Frame frame : frames) {
             totalScore += frame.score();
+            totalScore = calculateTotalScore(totalScore, previousGame, frame);
+            previousGame = frame;
         }
         if (currentFrame.isInProgress()){
             totalScore += currentFrame.score();
+            totalScore = calculateTotalScore(totalScore, previousGame, currentFrame);
         }
         return totalScore;
     }
 
-    private void completeFrame() {
-        frames.add(currentFrame);
-        currentFrame = new Frame();
+    private int calculateTotalScore(int totalScore, Frame previousGame, Frame frame) {
+        if (previousGame.isSpare()) {
+            totalScore += frame.scoreFirstThrow();
+        }
+        return totalScore;
     }
 
 }

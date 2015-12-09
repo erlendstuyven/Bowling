@@ -31,19 +31,49 @@ public class Frame {
         return firstThrow + secondThrow;
     }
 
-    public boolean isSpare() {
+    int scoreFirstThrow() {
+        if (firstThrow == -1) {
+            throw new IllegalStateException("There need to be at least one throw for a Frame.");
+        }
+        return firstThrow;
+    }
+
+    boolean isSpare() {
         return firstThrow + secondThrow == 10 && firstThrow != 10;
     }
 
-    public boolean isStrike() {
+    boolean isStrike() {
         return firstThrow == 10;
     }
 
-    public boolean isCompleted() {
+    boolean isNormal() { return !isSpare() && !isStrike(); }
+
+    boolean isCompleted() {
         return isStrike() || (firstThrow > -1 && secondThrow > -1);
     }
 
-    public boolean isInProgress() {
+    boolean isInProgress() {
         return !isCompleted() && firstThrow > -1;
     }
+
+    Status getStatus() {
+        Status statusPreviousGame = Status.NORMAL;
+        if (isSpare()) {
+            statusPreviousGame = Status.SPARE;
+        } else if (isStrike()) {
+            statusPreviousGame = Status.STRIKE;
+        }
+        return statusPreviousGame;
+    }
+
+    enum Status {
+        NORMAL,
+        SPARE,
+        STRIKE
+    }
+
+    boolean isStarted() {
+        return firstThrow > -1;
+    }
+
 }

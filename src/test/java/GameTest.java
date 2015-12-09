@@ -26,5 +26,7 @@ public class GameTest {
         Assertions.assertThat(game.score()).isEqualTo(10);
         game.roll(2);
         Assertions.assertThat(game.score()).isEqualTo(14);
+        game.roll(3);
+        Assertions.assertThat(game.score()).isEqualTo(17);
     }
 }
