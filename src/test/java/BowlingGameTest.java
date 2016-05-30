@@ -6,6 +6,6 @@ public class BowlingGameTest {
 
     @Test
     public void testRoll() {
-        game.roll(1);
+        //game.roll(1);
     }
 }

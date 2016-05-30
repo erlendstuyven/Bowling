@@ -7,34 +7,29 @@ public class Game {
 
     private Frame currentFrame = new Frame();
 
-    private LinkedList<Frame> frames = new LinkedList<Frame>();
+    private Set<Frame> frames = new LinkedHashSet<Frame>();
 
     void roll(int pins) {
         currentFrame.roll(pins);
+        addCurrentFrameWhenCompleted();
+    }
+
+    private void addCurrentFrameWhenCompleted() {
+        frames.add(currentFrame);
         if (currentFrame.isCompleted()){
-            frames.add(currentFrame);
             currentFrame = new Frame();
         }
     }
 
     int score() {
         int totalScore = 0;
-        Frame previousGame = new Frame();
+        Frame previousFrame = new Frame();
         for (Frame frame : frames) {
             totalScore += frame.score();
-            totalScore = calculateTotalScore(totalScore, previousGame, frame);
-            previousGame = frame;
-        }
-        if (currentFrame.isInProgress()){
-            totalScore += currentFrame.score();
-            totalScore = calculateTotalScore(totalScore, previousGame, currentFrame);
-        }
-        return totalScore;
-    }
-
-    private int calculateTotalScore(int totalScore, Frame previousGame, Frame frame) {
-        if (previousGame.isSpare()) {
-            totalScore += frame.scoreFirstThrow();
+            if (previousFrame.isSpare()) {
+                totalScore += frame.scoreFirstThrow();
+            }
+            previousFrame = frame;
         }
         return totalScore;
     }
