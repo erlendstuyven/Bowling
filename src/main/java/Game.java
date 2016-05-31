@@ -1,8 +1,5 @@
 import java.util.*;
 
-/**
- * Created by bkerl on 28/10/15.
- */
 public class Game {
 
     private LinkedHashSet<Frame> frames = new LinkedHashSet<Frame>();
@@ -11,11 +8,11 @@ public class Game {
 
     void roll(int pins) {
         currentFrame.roll(pins);
-        addCurrentFrameWhenCompleted();
+        frames.add(currentFrame);
+        startNewFrameWhenNeeded();
     }
 
-    private void addCurrentFrameWhenCompleted() {
-        frames.add(currentFrame);
+    private void startNewFrameWhenNeeded() {
         if (currentFrame.isCompleted()){
             currentFrame = new Frame(currentFrame);
         }

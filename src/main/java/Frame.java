@@ -5,8 +5,7 @@ public class Frame {
     private int secondThrow = -1;
     private Frame previousFrame;
 
-    Frame() {
-    }
+    Frame(){}
 
     Frame(Frame previousFrame) {
         this.previousFrame = previousFrame;
@@ -38,16 +37,16 @@ public class Frame {
         return firstThrow + secondThrow;
     }
 
-    boolean isSpare() {
+    boolean isCompleted() {
+        return isStrike() || (firstThrow > -1 && secondThrow > -1);
+    }
+
+    private boolean isSpare() {
         return firstThrow + secondThrow == 10 && firstThrow != 10;
     }
 
-    boolean isStrike() {
+    private boolean isStrike() {
         return firstThrow == 10;
-    }
-
-    boolean isCompleted() {
-        return isStrike() || (firstThrow > -1 && secondThrow > -1);
     }
 
 }
