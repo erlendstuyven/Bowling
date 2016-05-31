@@ -10,9 +10,9 @@ public class Frame {
     }
 
     void roll(int pins) {
-        if (isNotThrown(firstThrow)) {
+        if (!isThrown(firstThrow)) {
             firstThrow = pins;
-        } else if (isNotThrown(secondThrow)) {
+        } else if (!isThrown(secondThrow)) {
             secondThrow = pins;
         } else {
             throw new IllegalStateException("You can maximum throw twice a frame.");
@@ -20,19 +20,17 @@ public class Frame {
     }
 
     int score() {
-        if (isNotThrown(firstThrow)) {
+        if (!isThrown(firstThrow)) {
             throw new IllegalStateException("There need to be at least one throw for a Frame.");
         }
-        if (isNotThrown(secondThrow)) {
-            if (previousFrame.isSpare()){
-                return doubleThrow(firstThrow);
-            }
-            return firstThrow;
-        }
+        int total = firstThrow;
         if (previousFrame.isSpare()) {
-            return doubleThrow(firstThrow) + secondThrow;
+            total = total + firstThrow;
         }
-        return firstThrow + secondThrow;
+        if (isThrown(secondThrow)) {
+            total = total + secondThrow;
+        }
+        return total;
     }
 
     boolean isCompleted() {
@@ -51,7 +49,7 @@ public class Frame {
         return aThrow * 2;
     }
 
-    private boolean isNotThrown(int aThrow) {
-        return aThrow == -1;
+    private boolean isThrown(int aThrow) {
+        return aThrow > -1;
     }
 }
