@@ -90,33 +90,9 @@ public class FrameTest {
     }
 
    @Test
-    public void isNormalGame() throws Exception {
-        frame.roll(3);
-        frame.roll(6);
-        assertThat(frame.isNormal()).isTrue();
-    }
-
-   @Test
     public void isNotCompletedwhenFirstThrowIsLowerThan10() throws Exception {
         frame.roll(3);
         assertThat(frame.isCompleted()).isFalse();
-    }
-
-    @Test
-    public void isInProgressWhenStartedButNotCompleted() {
-        frame.roll(4);
-        assertThat(frame.isInProgress()).isTrue();
-        frame.roll(3);
-        assertThat(frame.isInProgress()).isFalse();
-        frame = new Frame(new Frame());
-        assertThat(frame.isInProgress()).isFalse();
-    }
-
-    @Test
-    public void isStarted() {
-        assertThat(frame.isStarted()).isFalse();
-        frame.roll(4);
-        assertThat(frame.isStarted()).isTrue();
     }
 
 }
