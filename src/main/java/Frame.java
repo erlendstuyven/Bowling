@@ -27,11 +27,10 @@ public class Frame {
         if (isThrown(secondThrow)) {
             total = total + secondThrow;
         }
-        if (previousFrame.isSpare()) {
+        if (previousFrame.isSpare() || previousFrame.isStrike()) {
             total = total + firstThrow;
         }
         if (previousFrame.isStrike()){
-            total = total + firstThrow;
             if (isThrown(secondThrow)) {
                 total = total + secondThrow;
             }
