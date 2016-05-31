@@ -7,8 +7,13 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class Frame {
     private int firstThrow = -1;
     private int secondThrow = -1;
+    private Frame previousFrame;
 
     Frame() {
+    }
+
+    Frame(Frame previousFrame) {
+        this.previousFrame = previousFrame;
     }
 
     void roll(int pins) {

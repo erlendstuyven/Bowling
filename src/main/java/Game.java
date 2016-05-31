@@ -7,7 +7,7 @@ public class Game {
 
     private Frame currentFrame = new Frame();
 
-    private Set<Frame> frames = new LinkedHashSet<Frame>();
+    private LinkedHashSet<Frame> frames = new LinkedHashSet<Frame>();
 
     void roll(int pins) {
         currentFrame.roll(pins);
