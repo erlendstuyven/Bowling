@@ -65,6 +65,15 @@ public class FrameTest {
         assertThat(frameWithPreviousFrameIsSpare.score()).isEqualTo(7);
     }
 
+    @Test
+    public void scoreDoublesWhenPreviousFrameIsStrike() throws Exception {
+        Frame frameWithPreviousFrameIsSpare = new Frame(strikeFrame);
+        frameWithPreviousFrameIsSpare.roll(2);
+        assertThat(frameWithPreviousFrameIsSpare.score()).isEqualTo(4);
+        frameWithPreviousFrameIsSpare.roll(4);
+        assertThat(frameWithPreviousFrameIsSpare.score()).isEqualTo(12);
+    }
+
    @Test
     public void isCompletedwhenTwoThrows() throws Exception {
         frame.roll(3);

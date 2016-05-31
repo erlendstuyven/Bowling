@@ -25,7 +25,15 @@ public class Frame {
         }
         int total = firstThrow;
         if (previousFrame.isSpare()) {
-            total = total + firstThrow;
+            total = doubleThrow(firstThrow);
+        } else {
+           if (previousFrame.isStrike()) {
+               if (isThrown(secondThrow)){
+                    return doubleThrow(firstThrow + secondThrow);
+               } else {
+                   return doubleThrow(firstThrow);
+               }
+            }
         }
         if (isThrown(secondThrow)) {
             total = total + secondThrow;
