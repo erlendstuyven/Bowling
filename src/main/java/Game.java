@@ -5,7 +5,7 @@ import java.util.*;
  */
 public class Game {
 
-    private Frame currentFrame = new Frame();
+    private Frame currentFrame = new Frame(new Frame());
 
     private LinkedHashSet<Frame> frames = new LinkedHashSet<Frame>();
 
@@ -17,19 +17,19 @@ public class Game {
     private void addCurrentFrameWhenCompleted() {
         frames.add(currentFrame);
         if (currentFrame.isCompleted()){
-            currentFrame = new Frame();
+            currentFrame = new Frame(currentFrame);
         }
     }
 
     int score() {
         int totalScore = 0;
-        Frame previousFrame = new Frame();
+       // Frame previousFrame = new Frame();
         for (Frame frame : frames) {
             totalScore += frame.score();
-            if (previousFrame.isSpare()) {
-                totalScore += frame.scoreFirstThrow();
-            }
-            previousFrame = frame;
+          //  if (previousFrame.isSpare()) {
+          //      totalScore += frame.scoreFirstThrow();
+          //  }
+         //   previousFrame = frame;
         }
         return totalScore;
     }

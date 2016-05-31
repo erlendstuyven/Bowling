@@ -31,17 +31,23 @@ public class Frame {
             throw new IllegalStateException("There need to be at least one throw for a Frame.");
         }
         if (secondThrow == -1) {
+            if (previousFrame.isSpare()){
+                return firstThrow + firstThrow;
+            }
             return firstThrow;
+        }
+        if (previousFrame.isSpare()) {
+            return firstThrow + firstThrow + secondThrow;
         }
         return firstThrow + secondThrow;
     }
 
-    int scoreFirstThrow() {
-        if (firstThrow == -1) {
-            throw new IllegalStateException("There need to be at least one throw for a Frame.");
-        }
-        return firstThrow;
-    }
+ //   int scoreFirstThrow() {
+ //       if (firstThrow == -1) {
+ //           throw new IllegalStateException("There need to be at least one throw for a Frame.");
+ //       }
+ //       return firstThrow;
+ //   }
 
     boolean isSpare() {
         return firstThrow + secondThrow == 10 && firstThrow != 10;

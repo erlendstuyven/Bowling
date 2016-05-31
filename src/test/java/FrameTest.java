@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  */
 public class FrameTest {
 
-    private Frame frame = new Frame();
+    private Frame frame = new Frame(new Frame());
 
     @Test
     public void testRollTwoThrows() throws Exception {
@@ -108,7 +108,7 @@ public class FrameTest {
         assertThat(frame.isInProgress()).isTrue();
         frame.roll(3);
         assertThat(frame.isInProgress()).isFalse();
-        frame = new Frame();
+        frame = new Frame(new Frame());
         assertThat(frame.isInProgress()).isFalse();
     }
 
@@ -118,18 +118,5 @@ public class FrameTest {
         frame.roll(4);
         assertThat(frame.isStarted()).isTrue();
     }
-
-    @Test
-    public void scoreFirstThrow() {
-        frame.roll(3);
-        frame.roll(4);
-        assertThat(frame.scoreFirstThrow()).isEqualTo(3);
-    }
-
-   @Test(expected = IllegalStateException.class)
-    public void scoreFirstThrowIfFirstThrowDoesNotExistThrowIllegalStateException() {
-        frame.scoreFirstThrow();
-    }
-
 
 }
