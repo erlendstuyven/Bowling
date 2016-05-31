@@ -1,12 +1,22 @@
-import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.Assert.*;
 
 public class FrameTest {
 
     private Frame frame = new Frame(new Frame());
+    private Frame spareFrame;
+    private Frame strikeFrame;
+
+    @Before
+    public void setUp() throws Exception {
+        spareFrame = new Frame();
+        spareFrame.roll(1);
+        spareFrame.roll(9);
+        strikeFrame = new Frame();
+        strikeFrame.roll(10);
+    }
 
     @Test
     public void testRollTwoThrows() throws Exception {
@@ -44,6 +54,15 @@ public class FrameTest {
     public void isCompletedWhenFirstThrowIs10() throws Exception {
         frame.roll(10);
         assertThat(frame.isCompleted()).isTrue();
+    }
+
+    @Test
+    public void scoreDoublesFirstThrowTWhenPreviousFrameIsSpare() throws Exception {
+        Frame frameWithPreviousFrameIsSpare = new Frame(spareFrame);
+        frameWithPreviousFrameIsSpare.roll(2);
+        assertThat(frameWithPreviousFrameIsSpare.score()).isEqualTo(4);
+        frameWithPreviousFrameIsSpare.roll(3);
+        assertThat(frameWithPreviousFrameIsSpare.score()).isEqualTo(7);
     }
 
    @Test

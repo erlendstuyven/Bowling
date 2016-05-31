@@ -1,5 +1,3 @@
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class Frame {
     private int firstThrow = -1;
     private int secondThrow = -1;
@@ -12,9 +10,9 @@ public class Frame {
     }
 
     void roll(int pins) {
-        if (firstThrow == -1) {
+        if (isNotThrown(firstThrow)) {
             firstThrow = pins;
-        } else if (secondThrow == -1) {
+        } else if (isNotThrown(secondThrow)) {
             secondThrow = pins;
         } else {
             throw new IllegalStateException("You can maximum throw twice a frame.");
@@ -22,17 +20,17 @@ public class Frame {
     }
 
     int score() {
-        if (firstThrow == -1) {
+        if (isNotThrown(firstThrow)) {
             throw new IllegalStateException("There need to be at least one throw for a Frame.");
         }
-        if (secondThrow == -1) {
+        if (isNotThrown(secondThrow)) {
             if (previousFrame.isSpare()){
-                return firstThrow + firstThrow;
+                return doubleThrow(firstThrow);
             }
             return firstThrow;
         }
         if (previousFrame.isSpare()) {
-            return firstThrow + firstThrow + secondThrow;
+            return doubleThrow(firstThrow) + secondThrow;
         }
         return firstThrow + secondThrow;
     }
@@ -49,4 +47,11 @@ public class Frame {
         return firstThrow == 10;
     }
 
+    private int doubleThrow(int aThrow) {
+        return aThrow * 2;
+    }
+
+    private boolean isNotThrown(int aThrow) {
+        return aThrow == -1;
+    }
 }

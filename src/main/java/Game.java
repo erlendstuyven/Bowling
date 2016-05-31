@@ -9,10 +9,10 @@ public class Game {
     void roll(int pins) {
         currentFrame.roll(pins);
         frames.add(currentFrame);
-        startNewFrameWhenNeeded();
+        startNewFrameWhenCurrentIsCompleted();
     }
 
-    private void startNewFrameWhenNeeded() {
+    private void startNewFrameWhenCurrentIsCompleted() {
         if (currentFrame.isCompleted()){
             currentFrame = new Frame(currentFrame);
         }
