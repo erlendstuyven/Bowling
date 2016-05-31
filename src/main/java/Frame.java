@@ -24,19 +24,17 @@ public class Frame {
             throw new IllegalStateException("There need to be at least one throw for a Frame.");
         }
         int total = firstThrow;
-        if (previousFrame.isSpare()) {
-            total = doubleThrow(firstThrow);
-        } else {
-           if (previousFrame.isStrike()) {
-               if (isThrown(secondThrow)){
-                    return doubleThrow(firstThrow + secondThrow);
-               } else {
-                   return doubleThrow(firstThrow);
-               }
-            }
-        }
         if (isThrown(secondThrow)) {
             total = total + secondThrow;
+        }
+        if (previousFrame.isSpare()) {
+            total = total + firstThrow;
+        }
+        if (previousFrame.isStrike()){
+            total = total + firstThrow;
+            if (isThrown(secondThrow)) {
+                total = total + secondThrow;
+            }
         }
         return total;
     }
