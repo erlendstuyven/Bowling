@@ -50,10 +50,6 @@ public class Frame {
         return firstThrow == 10;
     }
 
-    private int doubleThrow(int aThrow) {
-        return aThrow * 2;
-    }
-
     private boolean isThrown(int aThrow) {
         return aThrow > -1;
     }
