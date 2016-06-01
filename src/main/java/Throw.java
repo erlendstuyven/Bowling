@@ -1,6 +1,4 @@
-/**
- * Created by bkerl on 01/06/16.
- */
+
 public class Throw {
 
 
@@ -20,5 +18,9 @@ public class Throw {
 
     boolean isThrown(){
         return (pins > -1);
+    }
+
+    boolean hasTenPinsDown(){
+        return (pins == 10);
     }
 }
