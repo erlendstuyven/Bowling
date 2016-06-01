@@ -1,3 +1,6 @@
+package Game;
+
+import javax.xml.validation.Validator;
 
 public class Roll {
 
@@ -9,6 +12,7 @@ public class Roll {
     }
 
     void setPins(int pins) {
+        if (pins > 10 || pins < -1) throw new IllegalArgumentException("Number of pins must be between 0 and 10");
         this.pins = pins;
     }
 

@@ -1,3 +1,6 @@
+package Game;
+
+import Game.Frame;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,11 +1,15 @@
-import java.util.List;
+import Game.Game;
 
 public class BowlingGame {
 
-    public void roll(int pins) {throw new RuntimeException("not yet implemented");}
+    private Game game = new Game();
+
+    public void roll(int pins) {
+        game.roll(pins);
+    }
 
     public int score() {
-        throw new RuntimeException("not yet implemented");
+        return game.score();
     }
 
 }

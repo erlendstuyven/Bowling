@@ -1,7 +1,7 @@
+package Game;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by bkerl on 28/10/15.
@@ -29,4 +29,16 @@ public class GameTest {
         game.roll(3);
         Assertions.assertThat(game.score()).isEqualTo(17);
     }
+
+    @Test (expected = IllegalStateException.class)
+    public void testThrowExceptionOneGameContainsMaximumTenFrames() {
+        Game game = GameTestBuilder.create().rollNumberOfTimesOnePin(21).build();
+    }
+
+    @Test
+    public void testOneGameContainsMaximumTenFrames() {
+        Game game = GameTestBuilder.create().rollNumberOfTimesOnePin(20).build();
+    }
+
+
 }

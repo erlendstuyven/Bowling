@@ -1,3 +1,5 @@
+package Game;
+
 public class Frame {
 
     private Roll firstRoll = new Roll();
@@ -23,7 +25,7 @@ public class Frame {
 
     int score() {
         if (!firstRoll.isThrown()) {
-            throw new IllegalStateException("There need to be at least one throw for a Frame.");
+            throw new IllegalStateException("There need to be at least one throw for a Game.Frame.");
         }
         int total = firstRoll.getPins();
         if (secondRoll.isThrown()) {
