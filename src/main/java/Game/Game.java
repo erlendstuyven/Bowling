@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 public class Game {
 
+    public static final int MAX_NUMBER_OF_FRAMES_IN_A_GAME = 10;
     private LinkedHashSet<Frame> frames = new LinkedHashSet<Frame>();
 
     private Frame currentFrame = new Frame(new Frame());
@@ -13,7 +14,7 @@ public class Game {
     }
 
     public void roll(int pins) {
-        validateNumberOfFramesIsMaximumTen();
+        validateNumberOfFramesIsLessThan(MAX_NUMBER_OF_FRAMES_IN_A_GAME);
         currentFrame.roll(pins);
         frames.add(currentFrame);
         startNewFrameWhenCurrentIsCompleted();
@@ -32,8 +33,8 @@ public class Game {
         };
     }
 
-    private void validateNumberOfFramesIsMaximumTen() {
-        if (frames.size() == 10 && !frames.contains(currentFrame)){
+    private void validateNumberOfFramesIsLessThan(int maxNumberOfFrames) {
+        if (frames.size() == maxNumberOfFrames && !frames.contains(currentFrame)){
             throw new IllegalStateException("Number of frames can not be greater than 10");
         }
     }
