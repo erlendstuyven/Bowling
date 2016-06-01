@@ -45,14 +45,11 @@ public class Frame {
     }
 
     private boolean isSpare() {
-        return firstThrow.getPins() + secondThrow.getPins() == 10 && firstThrow.getPins() != 10;
+        return (firstThrow.getPins() + secondThrow.getPins() == 10) && !firstThrow.hasTenPinsDown();
     }
 
     private boolean isStrike() {
-        return firstThrow.getPins() == 10;
+        return firstThrow.hasTenPinsDown();
     }
 
-    private boolean isThrown(int aThrow) {
-        return aThrow > -1;
-    }
 }
