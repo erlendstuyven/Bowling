@@ -1,5 +1,5 @@
 public class Frame {
-    private int firstThrow = -1;
+    private Throw firstThrow = new Throw();
     private int secondThrow = -1;
     private Frame previousFrame;
 
@@ -10,8 +10,8 @@ public class Frame {
     }
 
     void roll(int pins) {
-        if (!isThrown(firstThrow)) {
-            firstThrow = pins;
+        if (!firstThrow.isThrown()) {
+            firstThrow.setPins(pins);
         } else if (!isThrown(secondThrow)) {
             secondThrow = pins;
         } else {
@@ -20,15 +20,15 @@ public class Frame {
     }
 
     int score() {
-        if (!isThrown(firstThrow)) {
+        if (!firstThrow.isThrown()) {
             throw new IllegalStateException("There need to be at least one throw for a Frame.");
         }
-        int total = firstThrow;
+        int total = firstThrow.getPins();
         if (isThrown(secondThrow)) {
             total = total + secondThrow;
         }
         if (previousFrame.isSpare() || previousFrame.isStrike()) {
-            total = total + firstThrow;
+            total = total + firstThrow.getPins();
         }
         if (previousFrame.isStrike()){
             if (isThrown(secondThrow)) {
@@ -39,15 +39,15 @@ public class Frame {
     }
 
     boolean isCompleted() {
-        return isStrike() || (firstThrow > -1 && secondThrow > -1);
+        return isStrike() || (firstThrow.isThrown() && secondThrow > -1);
     }
 
     private boolean isSpare() {
-        return firstThrow + secondThrow == 10 && firstThrow != 10;
+        return firstThrow.getPins() + secondThrow == 10 && firstThrow.getPins() != 10;
     }
 
     private boolean isStrike() {
-        return firstThrow == 10;
+        return firstThrow.getPins() == 10;
     }
 
     private boolean isThrown(int aThrow) {
