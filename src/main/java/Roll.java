@@ -1,10 +1,10 @@
 
-public class Throw {
+public class Roll {
 
 
     private int pins = -1;
 
-    Throw(){
+    Roll(){
         this.pins = pins;
     }
 

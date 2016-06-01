@@ -1,7 +1,7 @@
 public class Frame {
 
-    private Throw firstThrow = new Throw();
-    private Throw secondThrow = new Throw();
+    private Roll firstRoll = new Roll();
+    private Roll secondRoll = new Roll();
 
     private Frame previousFrame;
 
@@ -12,44 +12,44 @@ public class Frame {
     }
 
     void roll(int pins) {
-        if (!firstThrow.isThrown()) {
-            firstThrow.setPins(pins);
-        } else if (!secondThrow.isThrown()) {
-            secondThrow.setPins(pins);
+        if (!firstRoll.isThrown()) {
+            firstRoll.setPins(pins);
+        } else if (!secondRoll.isThrown()) {
+            secondRoll.setPins(pins);
         } else {
             throw new IllegalStateException("You can maximum throw twice a frame.");
         }
     }
 
     int score() {
-        if (!firstThrow.isThrown()) {
+        if (!firstRoll.isThrown()) {
             throw new IllegalStateException("There need to be at least one throw for a Frame.");
         }
-        int total = firstThrow.getPins();
-        if (secondThrow.isThrown()) {
-            total = total + secondThrow.getPins();
+        int total = firstRoll.getPins();
+        if (secondRoll.isThrown()) {
+            total = total + secondRoll.getPins();
         }
         if (previousFrame.isSpare() || previousFrame.isStrike()) {
-            total = total + firstThrow.getPins();
+            total = total + firstRoll.getPins();
         }
         if (previousFrame.isStrike()){
-            if (secondThrow.isThrown()) {
-                total = total + secondThrow.getPins();
+            if (secondRoll.isThrown()) {
+                total = total + secondRoll.getPins();
             }
         }
         return total;
     }
 
     boolean isCompleted() {
-        return isStrike() || (firstThrow.isThrown() && secondThrow.isThrown());
+        return isStrike() || (firstRoll.isThrown() && secondRoll.isThrown());
     }
 
     private boolean isSpare() {
-        return (firstThrow.getPins() + secondThrow.getPins() == 10) && !firstThrow.hasTenPinsDown();
+        return (firstRoll.getPins() + secondRoll.getPins() == 10) && !firstRoll.hasTenPinsDown();
     }
 
     private boolean isStrike() {
-        return firstThrow.hasTenPinsDown();
+        return firstRoll.hasTenPinsDown();
     }
 
 }
