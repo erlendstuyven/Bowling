@@ -1,23 +1,22 @@
 package Game;
 
-import Game.Frame;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FrameTest {
 
-    private Frame frame = new Frame(new Frame());
-    private Frame spareFrame;
-    private Frame strikeFrame;
+    private NormalFrame frame = new NormalFrame(new NormalFrame());
+    private NormalFrame spareFrame;
+    private NormalFrame strikeFrame;
 
     @Before
     public void setUp() throws Exception {
-        spareFrame = new Frame();
+        spareFrame = new NormalFrame();
         spareFrame.roll(1);
         spareFrame.roll(9);
-        strikeFrame = new Frame();
+        strikeFrame = new NormalFrame();
         strikeFrame.roll(10);
     }
 
@@ -61,7 +60,7 @@ public class FrameTest {
 
     @Test
     public void scoreDoublesFirstThrowTWhenPreviousFrameIsSpare() throws Exception {
-        Frame frameWithPreviousFrameIsSpare = new Frame(spareFrame);
+        Frame frameWithPreviousFrameIsSpare = new NormalFrame(spareFrame);
         frameWithPreviousFrameIsSpare.roll(2);
         assertThat(frameWithPreviousFrameIsSpare.score()).isEqualTo(4);
         frameWithPreviousFrameIsSpare.roll(3);
@@ -70,7 +69,7 @@ public class FrameTest {
 
     @Test
     public void scoreDoublesWhenPreviousFrameIsStrike() throws Exception {
-        Frame frameWithPreviousFrameIsSpare = new Frame(strikeFrame);
+        Frame frameWithPreviousFrameIsSpare = new NormalFrame(strikeFrame);
         frameWithPreviousFrameIsSpare.roll(2);
         assertThat(frameWithPreviousFrameIsSpare.score()).isEqualTo(4);
         frameWithPreviousFrameIsSpare.roll(4);

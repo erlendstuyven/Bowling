@@ -1,12 +1,13 @@
 package Game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class Frame {
+public abstract class Frame {
 
-    private List<Roll> rolls = new ArrayList<>(Arrays.asList(new Roll(), new Roll()));
+    private List<Roll> rolls = getRolls();
+
+    abstract ArrayList<Roll> getRolls();
 
     private Frame previousFrame;
 
@@ -16,15 +17,21 @@ public class Frame {
         this.previousFrame = previousFrame;
     }
 
+    abstract int getMaximumNumberOfRolls();
+
     void roll(int pins) {
-        if (!firstRoll().isThrown()) {
-            firstRoll().setPins(pins);
-        } else if (!secondRoll().isThrown()) {
-            secondRoll().setPins(pins);
-        } else {
+        int counter = 0;
+        while (counter < getMaximumNumberOfRolls()) {
+            if (!rolls.get(counter).isThrown()){
+                rolls.get(counter).setPins(pins);
+                break;
+            }
+            counter++;
+        }
+        if (counter == getMaximumNumberOfRolls()) {
             throw new IllegalStateException("You can maximum throw twice a frame.");
         }
-    }
+   }
 
     int score() {
         if (!firstRoll().isThrown()) {
@@ -64,6 +71,5 @@ public class Frame {
     private Roll secondRoll() {
         return rolls.get(1);
     }
-
 
 }
