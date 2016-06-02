@@ -20,6 +20,11 @@ public class FrameTest {
         strikeFrame.roll(10);
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void testScoreWithoutRolls() throws Exception {
+        frame.score();
+    }
+
     @Test
     public void testRollTwoThrows() throws Exception {
         frame.roll(3);

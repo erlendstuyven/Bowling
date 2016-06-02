@@ -2,6 +2,7 @@ package Game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class Frame {
 
@@ -20,16 +21,11 @@ public abstract class Frame {
     abstract int getMaximumNumberOfRolls();
 
     void roll(int pins) {
-        int counter = 0;
-        while (counter < getMaximumNumberOfRolls()) {
-            if (!rolls.get(counter).isThrown()){
-                rolls.get(counter).setPins(pins);
-                break;
-            }
-            counter++;
-        }
-        if (counter == getMaximumNumberOfRolls()) {
-            throw new IllegalStateException("You can maximum throw twice a frame.");
+        Optional<Roll> firstRollAvailableForPins = rolls.stream().filter(roll -> !roll.isThrown()).findFirst();
+        if (firstRollAvailableForPins.isPresent()) {
+            firstRollAvailableForPins.get().setPins(pins);
+        } else {
+            throw new IllegalStateException("You can maximum throw " + getMaximumNumberOfRolls() + " a frame.");
         }
    }
 
@@ -37,19 +33,28 @@ public abstract class Frame {
         if (!firstRoll().isThrown()) {
             throw new IllegalStateException("There need to be at least one throw for a Game.Frame.");
         }
-        int total = firstRoll().getPins();
-        if (secondRoll().isThrown()) {
-            total = total + secondRoll().getPins();
-        }
-        if (previousFrame.isSpare() || previousFrame.isStrike()) {
-            total = total + firstRoll().getPins();
-        }
+        int totalPinsDown = calculatePinsDown();
+        totalPinsDown = calculateBonusPinsWhenSpare(totalPinsDown);
+        totalPinsDown = calculateBonusPinsWhenStrike(totalPinsDown);
+        return totalPinsDown;
+    }
+
+    private int calculatePinsDown() {
+        return rolls.stream().filter(roll -> roll.isThrown()).mapToInt(roll -> roll.getPins()).sum();
+    }
+
+    private int calculateBonusPinsWhenStrike(int totalPinsDown) {
         if (previousFrame.isStrike()){
-            if (secondRoll().isThrown()) {
-                total = total + secondRoll().getPins();
+                totalPinsDown = totalPinsDown * 2;
             }
+        return totalPinsDown;
+    }
+
+    private int calculateBonusPinsWhenSpare(int totalPinsDown) {
+        if (previousFrame.isSpare()) {
+            totalPinsDown = totalPinsDown + firstRoll().getPins();
         }
-        return total;
+        return totalPinsDown;
     }
 
     boolean isCompleted() {
