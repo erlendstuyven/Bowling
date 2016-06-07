@@ -31,12 +31,16 @@ public abstract class Frame {
 
     int score() {
         if (!firstRoll().isThrown()) {
-            throw new IllegalStateException("There need to be at least one throw for a Game.Frame.");
+            throw new IllegalStateException("There need to be at least one roll for a Frame.");
         }
         int totalPinsDown = calculatePinsDown();
         totalPinsDown = calculateBonusPinsWhenSpare(totalPinsDown);
         totalPinsDown = calculateBonusPinsWhenStrike(totalPinsDown);
         return totalPinsDown;
+    }
+
+    boolean isCompleted() {
+        return isStrike() || (firstRoll().isThrown() && secondRoll().isThrown());
     }
 
     private int calculatePinsDown() {
@@ -55,10 +59,6 @@ public abstract class Frame {
             totalPinsDown = totalPinsDown + firstRoll().getPins();
         }
         return totalPinsDown;
-    }
-
-    boolean isCompleted() {
-        return isStrike() || (firstRoll().isThrown() && secondRoll().isThrown());
     }
 
     private boolean isSpare() {
