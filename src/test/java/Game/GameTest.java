@@ -35,10 +35,10 @@ public class GameTest {
         Game game = GameTestBuilder.create().rollNumberOfTimesOnePin(21).build();
     }
 
+
     @Test
     public void testOneGameContainsMaximumTenFrames() {
         Game game = GameTestBuilder.create().rollNumberOfTimesOnePin(20).build();
     }
-
 
 }

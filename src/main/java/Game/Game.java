@@ -1,7 +1,6 @@
 package Game;
 
 import java.util.LinkedHashSet;
-import java.util.function.Function;
 
 public class Game {
 
@@ -21,16 +20,7 @@ public class Game {
     }
 
     public int score() {
-        return frames.stream().map(toScore()).mapToInt(Integer::intValue).sum();
-    }
-
-    private Function<Frame, Integer> toScore() {
-        return new Function<Frame, Integer>() {
-            @Override
-            public Integer apply(Frame frame) {
-                return frame.score();
-            }
-        };
+       return frames.stream().map(frame -> frame.score()).mapToInt(Integer::intValue).sum();
     }
 
     private void validateNumberOfFramesIsLessThan(int maxNumberOfFrames) {
@@ -41,7 +31,11 @@ public class Game {
 
     private void startNewFrameWhenCurrentIsCompleted() {
         if (currentFrame.isCompleted()){
-            currentFrame = new NormalFrame(currentFrame);
+            if (frames.size() == MAX_NUMBER_OF_FRAMES_IN_A_GAME) {
+                currentFrame = new NormalFrame(currentFrame);
+            } else {
+                currentFrame = new NormalFrame(currentFrame);
+            }
         }
     }
 
