@@ -15,7 +15,7 @@ public class NormalFrame extends Frame {
         return 2;
     }
 
-    NormalFrame(NormalFrame previousFrame) {
+    NormalFrame(Frame previousFrame) {
         super(previousFrame);
     }
 

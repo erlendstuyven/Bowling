@@ -7,7 +7,7 @@ public class Game {
     public static final int MAX_NUMBER_OF_FRAMES_IN_A_GAME = 10;
     private LinkedHashSet<Frame> frames = new LinkedHashSet<Frame>();
 
-    private NormalFrame currentFrame = new NormalFrame(new NormalFrame());
+    private Frame currentFrame = new NormalFrame(new NormalFrame());
 
     public Game() {
     }

@@ -15,7 +15,7 @@ public class LastFrame extends Frame {
         return 3;
     }
 
-    LastFrame(LastFrame previousFrame) {
+    LastFrame(Frame previousFrame) {
         super(previousFrame);
     }
 
