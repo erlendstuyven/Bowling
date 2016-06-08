@@ -31,10 +31,10 @@ public class Game {
 
     private void startNewFrameWhenCurrentIsCompleted() {
         if (currentFrame.isCompleted()){
-            if (frames.size() == MAX_NUMBER_OF_FRAMES_IN_A_GAME) {
+            if (frames.size() < MAX_NUMBER_OF_FRAMES_IN_A_GAME) {
                 currentFrame = new NormalFrame(currentFrame);
             } else {
-                currentFrame = new NormalFrame(currentFrame);
+                currentFrame = new LastFrame(currentFrame);
             }
         }
     }
